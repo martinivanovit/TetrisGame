@@ -9,7 +9,14 @@
     <UserControl.Resources>
         <FontFamily x:Key="FontAwesome">/TetrisApp;component/Resources/#Font Awesome 5 Free Solid</FontFamily>
     </UserControl.Resources>
-    <TextBlock x:Name="textBlock"
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="textBlock"
                FontFamily="{StaticResource FontAwesome}"
                Text="{Binding Glyph, RelativeSource={RelativeSource AncestorType=local:GlyphButton}}"/>
+        <ContentControl Grid.Column="1" Content="{Binding Content, RelativeSource={RelativeSource AncestorType=local:GlyphButton}}" />
+    </Grid>
 </UserControl>
