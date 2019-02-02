@@ -12,6 +12,8 @@
         FontSize="14">
     <Window.Resources>
         <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local:InverterBooleanToVisibilityConverter x:Key="InverterBooleanToVisibilityConverter" />
+        <FontFamily x:Key="FontAwesome">/TetrisApp;component/Resources/#Font Awesome 5 Free Solid</FontFamily>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Command="{Binding MoveCommand}" CommandParameter="{x:Static tetrisGame:MovementDirection.Down}" Key="Down" />
@@ -34,8 +36,11 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-            <Border BorderThickness="1" BorderBrush="Black" >
-                <Grid x:Name="renderSurface" />
+            <Border BorderThickness="1" BorderBrush="Black">
+                <Grid>
+                    <Grid x:Name="renderSurface" />
+                    <local:EndGameInfoUserControl x:Name="endGameInfoControl" Visibility="{Binding IsEndGameInfoVisible, Converter={StaticResource BooleanToVisibilityConverter}}" Width="200" Height="200"/>
+                </Grid>
             </Border>
             <StackPanel Grid.Column="1" Margin="10 0 0 0">
                 <Border BorderBrush="Black" BorderThickness="1" Margin="0 0 0 10" Padding="5">
@@ -99,8 +104,8 @@
                                 Width="100"/>
                     </StackPanel>
                 </Border>
-                <Expander Header="Settings">
-                    
+                <Expander Header="Settings" Margin="0 10 0 0">
+
                 </Expander>
             </StackPanel>
         </Grid>

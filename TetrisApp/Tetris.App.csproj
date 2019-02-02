@@ -55,9 +55,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\InverterBooleanToVisibilityConverter.cs" />
+    <Compile Include="EndGameInfoUserControl.xaml.cs">
+      <DependentUpon>EndGameInfoUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="GlyphButton.xaml.cs">
+      <DependentUpon>GlyphButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\TetrisGameViewModel.cs" />
+    <Page Include="EndGameInfoUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GlyphButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,6 +108,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Font Awesome 5 Free-Solid-900.otf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -105,6 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\highscore-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\play-again-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

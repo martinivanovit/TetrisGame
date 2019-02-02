@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TetrisApp;
 using TetrisGame;
 
 namespace Tetris
@@ -10,11 +11,12 @@ namespace Tetris
     {
         private bool? isGameRunning = false;
         private GameEngine gameEngine;
-
+        
         private int lines;
         private int score;
         private int highscore;
         private int level;
+        private bool isEndGameInfoVisible = false;
 
         public ICommand StartGameCommand { get; set; }
         public ICommand EndGameCommand { get; set; }
@@ -75,14 +77,32 @@ namespace Tetris
             }
         }
 
+        public GameEngine GameEngine
+        {
+            get { return this.gameEngine;  }
+        }
+               
+        public bool IsEndGameInfoVisible
+        {
+            get { return isEndGameInfoVisible; }
+            set
+            {
+                if (this.isEndGameInfoVisible != value)
+                {
+                    this.isEndGameInfoVisible = value;
+                    this.NotifyPropertyChanged("IsEndGameInfoVisible");
+                }
+            }
+        }
+        
         public TetrisGameViewModel(Grid gameRenderSurface, Grid nextShapeRenderSurface)
         {
             var playfield = new GameField();
             var renderer = new GameRenderer(gameRenderSurface, nextShapeRenderSurface, playfield);
             this.gameEngine = new GameEngine(playfield, renderer);
             this.gameEngine.GamePropertyChanged += GameEngine_PropertyChanged;
-            this.gameEngine.EndGameAnimationCompleted += GameEngine_EndGameAnimationCompleted;
             this.gameEngine.GameEnded += GameEngine_GameEnded;
+            this.gameEngine.EndGameAnimationCompleted += GameEngine_EndGameAnimationCompleted;
 
             this.StartGameCommand = new RelayCommand(OnStartGame, OnCanStartGame);
             this.EndGameCommand = new RelayCommand(OnEndGame, OnCanEndGame);
@@ -94,15 +114,15 @@ namespace Tetris
             this.Highscore = ScoringSystem.GetHighscore();
         }
 
+        private void GameEngine_EndGameAnimationCompleted(object sender, EventArgs e)
+        {
+            this.IsEndGameInfoVisible = true;
+        }
+
         private void GameEngine_GameEnded(object sender, EventArgs e)
         {
             this.isGameRunning = false;
             CommandManager.InvalidateRequerySuggested();
-        }
-
-        private void GameEngine_EndGameAnimationCompleted(object sender, EventArgs e)
-        {
-          
         }
 
         private bool OnCanResumeGame(object arg)
@@ -164,6 +184,7 @@ namespace Tetris
         private void OnStartGame(object obj)
         {
             this.isGameRunning = true;
+            this.IsEndGameInfoVisible = false;
             this.gameEngine.StartNewGame();
         }
 

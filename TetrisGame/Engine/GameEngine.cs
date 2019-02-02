@@ -77,6 +77,8 @@ namespace TetrisGame
 
             this.endGameBlocksBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8FC461"));
             this.endGameBlocksBrush.Freeze();
+
+            this.renderer.RenderGameField();
         }
 
         private void OnFrameRenderTimerTick(object sender, EventArgs e)
