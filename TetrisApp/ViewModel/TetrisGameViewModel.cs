@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TetrisApp;
 using TetrisGame;
 
 namespace Tetris
@@ -24,7 +23,8 @@ namespace Tetris
         public ICommand RotateCommand { get; set; }
         public ICommand PauseGameCommand { get; set; }
         public ICommand ResumeGameCommand { get; set; }
-
+        public ICommand HideEndGameInfoCommand { get; set; }
+       
         public int Score
         {
             get { return this.score; }
@@ -110,13 +110,17 @@ namespace Tetris
             this.ResumeGameCommand = new RelayCommand(OnResume, OnCanResumeGame);
             this.MoveCommand = new RelayCommand(OnMove);
             this.RotateCommand = new RelayCommand(OnRotate);
+            this.HideEndGameInfoCommand = new RelayCommand(OnHideEndGameInfo);
 
             this.Highscore = ScoringSystem.GetHighscore();
         }
 
         private void GameEngine_EndGameAnimationCompleted(object sender, EventArgs e)
         {
-            this.IsEndGameInfoVisible = true;
+            if (this.isGameRunning == false)
+            {
+                this.IsEndGameInfoVisible = true;
+            }
         }
 
         private void GameEngine_GameEnded(object sender, EventArgs e)
@@ -186,6 +190,11 @@ namespace Tetris
             this.isGameRunning = true;
             this.IsEndGameInfoVisible = false;
             this.gameEngine.StartNewGame();
+        }
+
+        private void OnHideEndGameInfo(object obj)
+        {
+            this.IsEndGameInfoVisible = false;
         }
 
         private void GameEngine_PropertyChanged(object sender, EnginePropertyChangedArgs e)

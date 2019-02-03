@@ -60,16 +60,10 @@
       <DependentUpon>EndGameInfoUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="GlyphButton.xaml.cs">
-      <DependentUpon>GlyphButton.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Helpers\EventToCommandUtilities.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\TetrisGameViewModel.cs" />
     <Page Include="EndGameInfoUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GlyphButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,9 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\highscore-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\play-again-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
